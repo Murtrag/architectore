@@ -1,0 +1,66 @@
+KLASA: (CLAS)
+
+- K > Kurwa! Abstrakcja!
+- L > Linia: Dziedziczenie
+- A > Aktor: Enkapsulacja (Ukurwa swoja prawdziwa osoba i abstrachuje tylko)
+- S > Szablon Polimorfizm co oznacza, że różne obiekty mogą działać zgodnie z tym samym wzorem, ale na swój sposób
+
+
+DOPISAC UML do CV
+
+
+
+Hallmarks of good architecture
+
+1. Loos coupling - weak knowledge association between components
+klasy powinny laczyc sie najmniejsza iloscia wiazan, 
+aby zmiana w jednej klasie miala jak najmniejszy efekt na inne
+
+2. Separation of Concerns - Breaking your architecture into tiers
+Dzielenie architektury na poziomy e.g.
+- Presentation
+- buisnes
+- resource
+
+3. Low Of Demeter (LoD)
+jednostka powinna miec jak najmniejsza wiedze o innych, 
+powinna tylko wiedziec o blisko spokrewnionych jednostkach.
+
+4. SOLID Principles of object-oriented programming
+
+    - The single responsability principle   SRP
+        The class should only have one central responsability
+    
+    - The open-closed principle    OCP
+        open for extension, closed for modification
+        If you want to extend functionality calculator to science-calculator, then you should use inheritence 
+
+    - The liskov-substitution principle
+        If class A is a subtype of class B, then we should be able to replace B,
+        with A without interrupting the behavior of the program.
+        w liskov chodzi o to ze, subklasa powinien zachowywac taka sama funkcjonalnosc co superklasa
+        ptak > 
+        latajace, nielatajace
+        class pingwin(nielatajace)
+        class skowronek(latajace)
+    
+    - The interface segregation principle
+        Declaring methods in an interface that the caller doesn't need pollutes
+        the interface and leads to a "bulky" or "fat" interface
+        class Log {-log} -> class DBLog(Log) {-log, -open, -close}
+        Rozbic klasy albo zalatwic dziedziczeniem
+    
+    - The dependency inversion principle
+        Simply put, in Python, I should expect parameters with a type that is an interface or abstraction, 
+        and it doesn't matter which specific implementation is used, 
+        because it will be handled in the same way according to the interface or abstraction.
+
+
+
+Standary:
+I na poczatku interface
+class IMessageService(ABC)   - Interface
+
+Base/Abstract na poczatku abstrakcyjnych klas
+class BaseMessage(ABC)
+class AbstractMessage(ABC)

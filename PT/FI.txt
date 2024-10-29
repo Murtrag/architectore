@@ -1,0 +1,28 @@
+Fluent Interface
+przyklady:
+Django ORM, JQuery
+
+class Car:
+    def __init__(self):
+        self.make = None
+        self.model = None
+        self.color = None
+
+    def set_make(self, make):
+        self.make = make
+        return self
+
+    def set_model(self, model):
+        self.model = model
+        return self
+
+    def set_color(self, color):
+        self.color = color
+        return self
+
+    def build(self):
+        return f"Car: {self.make} {self.model} in {self.color}"
+
+# Użycie Fluent Interface
+car = Car().set_make("Toyota").set_model("Corolla").set_color("Red").build()
+print(car)

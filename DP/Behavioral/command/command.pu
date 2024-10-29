@@ -1,0 +1,32 @@
+interface Command {
+  + execute() : void
+}
+
+class LightOnCommand {
+  - light: Light
+  + execute() : void
+}
+
+class LightOffCommand {
+  - light: Light
+  + execute() : void
+}
+
+class Light {
+  + turn_on() : void
+  + turn_off() : void
+}
+
+class RemoteControl {
+  - command: Command
+  + set_command(command: Command) : void
+  + press_button() : void
+}
+
+Command <|.. LightOnCommand
+Command <|.. LightOffCommand
+LightOnCommand --> Light
+LightOffCommand --> Light
+RemoteControl --> Command
+
+@enduml

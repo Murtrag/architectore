@@ -1,0 +1,28 @@
+Agregacja o--
+Kompozycja *--
+Dziedziczenie --|>
+Implementacja ..|>
+Asocjacja -->
+Zależność ..>
+Połączenie dwukierunkowe <-->
+
+
+
+@startuml
+class Book {
+    - title: str
+    - publication_year: int
+    - author: Author
+    <<create>> +Book(title:str, publication_year:int, author:Author)
+    + get_book_info(): str
+}
+
+class Author {
+    - name: str
+    - birth: int
+    <<create>> +Author(name:str, birth_year:int)
+    +get_author_info(): str
+}
+
+Book *-- Author
+@enduml
