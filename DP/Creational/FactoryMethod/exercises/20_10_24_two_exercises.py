@@ -84,3 +84,36 @@ print(
 # 	b. When you need to create for example USSEnterprise you will in fact delegate to USSEnterpriseFactory
 # 	c. This means that the creation will need to be in some sort of switch to sort out which factory to use.
 	
+
+class SpaceShipFactory:
+
+	@abstractmethod
+	def create_ship(context: dict):
+		pass
+
+class MilleniumFalconFactory(SpaceShipFactory):
+	@staticmethod
+	def create_ship(context: dict):
+		return MilleniumFalcon(**context)
+class USSEnterpriseFactory(SpaceShipFactory):
+	@staticmethod
+	def create_ship(context: dict):
+		return USSEnterprise(**context)
+class UNSCInfinityFactory(SpaceShipFactory):
+	@staticmethod
+	def create_ship(context: dict):
+		return UNSCInfinity(**context)
+class SerenityFactory(SpaceShipFactory):
+	@staticmethod
+	def create_ship(context: dict):
+		return Serenity(**context)
+
+mf = MilleniumFalconFactory.create_ship( {
+	'position': (1, 2),
+	'size': "10m",
+	'display_name': "Kraken",
+	'speed': "30km/h"
+	})
+print(
+	mf.present()
+)
