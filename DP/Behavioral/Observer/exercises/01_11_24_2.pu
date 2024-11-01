@@ -1,0 +1,25 @@
+@startuml
+class Stock{
+    + stock_symbol: str
+    + price: float
+    + price_change: float
+    + _observers: list[Observer]
+    + set_price(price: float)
+    + notify_observers()
+    + attach(observer: Observer)
+}
+
+interface Observer{
+    + update(stock: Stock)
+}
+class PriceDisplay{
+    + update(stock: Stock)
+}
+class ChangeDisplay{
+    + update(stock: Stock)
+}
+
+Stock *--> Observer
+PriceDisplay --|> Observer
+ChangeDisplay --|> Observer
+@enduml
