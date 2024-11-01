@@ -1,0 +1,31 @@
+@startuml
+interface Observer {
+    + update(weather_data)
+}
+
+class CurrentConditionsDisplay{
+    + update(weather_data)
+}
+class StatisticsDisplay{
+    + update(weather_data)
+}
+class ForecastDisplay{
+    + update(weather_data)
+}
+
+class WeatherData{
+    + temperature: float
+    + humidity: float
+    + pressure: float
+    - _observers: list
+    + attach(observer: Observer)
+    + remove_observer(observer: Observer)
+    + set_measurements(temperature: float, humidity: float, pressure: float)
+    + notify_observers()
+}
+
+WeatherData *--> Observer
+CurrentConditionsDisplay <|.. Observer
+StatisticsDisplay <|.. Observer
+ForecastDisplay <|.. Observer
+@enduml
