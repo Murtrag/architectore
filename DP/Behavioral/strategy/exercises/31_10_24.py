@@ -122,6 +122,7 @@ while True:
         choice, weight
     )
     print(result)
+
 # Exercise #2)
 # 1. You have a simple application that processes text data. The application can perform three different text transformations: uppercase, lowercase, and capitalize.
 # 2. Currently, the code (which is in text_processing.py) is written without the strategy pattern, and you need to refactor it to use the strategy pattern.
@@ -143,6 +144,57 @@ while True:
 
 # output_text = process_text(input_text, operation)
 # print(output_text)
+class BaseStrategy(ABC):
+    @abstractmethod
+    def transform(self, text: str) -> str:
+        pass
+
+class UppercaseStrategy(BaseStrategy):
+    def transform(self, text: str) -> str:
+        return text.upper()
+class LowercaseStrategy(BaseStrategy):
+    def transform(self, text: str) -> str:
+        return text.lower()
+class CapitalizeStrategy(BaseStrategy):
+    def transform(self, text: str) -> str:
+        return text.capitalize()
+class TransformStrategies(Enum):
+    uppercase = 1
+    lowercase = 2
+    capitalize = 3
+
+class TransformText:
+    def set_strategy(self, strategy: BaseStrategy):
+        self._strategy = strategy
+    
+    def transform(self, text: str) -> str:
+        return self._strategy.transform(text)
+
+class TransformTextSimpleFactory:
+    @staticmethod
+    def transform(type: int, text: str) -> str:
+        tt = TransformText()
+        if type == TransformStrategies.uppercase.value:
+            tt.set_strategy(UppercaseStrategy())
+            return tt.transform(text)
+        elif type == TransformStrategies.lowercase.value:
+            tt.set_strategy(LowercaseStrategy())
+            return tt.transform(text)
+        elif type == TransformStrategies.capitalize.value:
+            tt.set_strategy(CapitalizeStrategy())
+            return tt.transform(text)
+
+
+
+print("Types of transformation:")
+print("1. Uppercase")
+print("2. Lowercase")
+print("3. Capitalize")
+while True:
+    raw_text = input("Put text to transorm: \n")
+    choice = int(input("Put type of  transformation you want to perform: "))
+    transformed = TransformTextSimpleFactory.transform(choice, raw_text)
+    print(transformed)
 
 # Exercise #3)
 # 1. Go back to Adapter pattern code and look if the code can be refactored to use the Strategy pattern to make it more abstracted and maintainable.
