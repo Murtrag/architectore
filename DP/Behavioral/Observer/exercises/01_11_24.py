@@ -65,7 +65,7 @@ wd.set_measurements(**{
     "pressure": 11.1,
 })
 
-
+print("\n\n\n\n\n\n\n\n\n\n\n")
 # Exercise #2)
 # 1. Create a Stock class that stores the stock's symbol, price, and the change in
 # price. It should have methods to set_price() and notify_observers().
@@ -77,3 +77,41 @@ wd.set_measurements(**{
 # for each registered observer.
 # 6. Each observer should display the updated stock data in its own format.
 # 7. Ddraw a UML diagram.
+
+class Stock:
+    def __init__(self, symbol: str):
+        self.stock_symbol = symbol
+        self.price = 0.0
+        self.price_change = 0.0
+
+        self._observers: list[Observer] = []
+
+    def set_price(self, price: float) -> None:
+        self.price_change = abs(self.price - price) 
+        self.price = price
+        self.notify_observers()
+
+    def notify_observers(self) -> None:
+        for observer in self._observers:
+            observer.update(self)
+
+    def attach(self, observer: Observer) -> None:
+        self._observers.append(observer)
+
+class Observer(ABC):
+    @abstractmethod
+    def update(self, stock: Stock) -> None:
+        pass
+class PriceDisplay(Observer):
+    def update(self, stock: Stock) -> None:
+        print(f"[{stock.stock_symbol}] current price is {stock.price}")
+class ChangeDisplay(Observer):
+    def update(self, stock: Stock) -> None:
+        print(f"[{stock.stock_symbol}] price change is {stock.price_change}")
+
+s = Stock("MSFT")
+s.attach(PriceDisplay())
+s.attach(ChangeDisplay())
+s.set_price(15.0)
+s.set_price(5.0)
+
