@@ -195,8 +195,3 @@ while True:
     choice = int(input("Put type of  transformation you want to perform: "))
     transformed = TransformTextSimpleFactory.transform(choice, raw_text)
     print(transformed)
-
-# Exercise #3)
-# 1. Go back to Adapter pattern code and look if the code can be refactored to use the Strategy pattern to make it more abstracted and maintainable.
-# use the Strategy pattern to make it more abstracted and maintainable.
-# 2. Look specifically at how the code handles displaying the contact records.
