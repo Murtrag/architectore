@@ -112,7 +112,7 @@ p.play()
 p.pause()
 p.play()
 
-
+print("\n\n\n\n\n\n\n\n")
 # Exercise #2)
 # Implement a text editor that can edit and format text using different styles, including bold, italic, and underline. The editor should have a TextEditor class
 # that maintains the current state of the text editor. The editor should be able to transition between the following states:
@@ -163,3 +163,165 @@ p.play()
 # class UnderlineState:
 #     def __init__(self):
 #         pass
+
+class TextEditor:
+    def __init__(self):
+        self.state = DefaultState(self)
+        self.text = ""
+        self.history = []
+        self.redo_history = []
+
+    def enter_text(self, text):
+        # Clear redo, the timeline has changed
+        self.redo_history.clear()
+
+        # Get formating
+        formated_text = self.state.decorate_text(text)
+
+        # Add to history
+        self.history.append(formated_text)
+
+        # Add text
+        self.text += formated_text
+
+    def apply_bold(self):
+        self.state.apply_bold()
+
+    def apply_italic(self):
+        self.state.apply_italic()
+
+    def apply_underline(self):
+        self.state.apply_underline()
+
+    def apply_default(self):
+        self.state.apply_default()
+
+    def undo(self):
+        # Check if possible
+        if not self.history:
+            print("nothing to undo.")
+            return
+
+        # Get last change
+        text_to_undo = self.history.pop()
+        
+        # Append it to redo history
+        self.redo_history.append(text_to_undo)
+
+        # Cut off last change from the text
+        self.text = self.text[:-len(text_to_undo)]
+
+    def redo(self):
+        # Check if possible
+        if not self.redo_history:
+            print("nothing to undo.")
+            return
+
+        # Get last change
+        text_to_redo = self.redo_history.pop()
+
+        # Append it to history
+        self.history.append(text_to_redo)
+
+        # Append last change to the text
+        self.text += text_to_redo
+    def __str__(self):
+        return (
+            f"Text Editor - Current State: {self.state.__class__.__name__}\n"
+            f"Text Length: {len(self.text)} characters\n"
+            f"Text Content:\n{self.text}"
+        )
+class BaseState(ABC):
+    def __init__(self, text_editor: TextEditor):
+        self._text_editor = text_editor
+    @abstractmethod
+    def apply_bold(self) -> None:
+        pass
+    @abstractmethod
+    def apply_italic(self) -> None:
+        pass
+    @abstractmethod
+    def apply_underline(self) -> None:
+        pass
+    @abstractmethod
+    def apply_default(self) -> None:
+        pass
+    @abstractmethod
+    def decorate_text(self, text: str) -> str:
+        pass
+
+class DefaultState(BaseState):
+    def apply_bold(self) -> None:
+        self._text_editor.state = BoldState(self._text_editor)
+    def apply_italic(self) -> None:
+        self._text_editor.state = ItalicState(self._text_editor)
+    def apply_underline(self) -> None:
+        self._text_editor.state = UnderlineState(self._text_editor)
+    def apply_default(self) -> None:
+        self._text_editor.state = self
+    def decorate_text(self, text: str) -> str:
+        return text
+
+class BoldState(BaseState):
+    def apply_bold(self) -> None:
+        self._text_editor.state = self
+    def apply_italic(self) -> None:
+        self._text_editor.state = ItalicState(self._text_editor)
+    def apply_underline(self) -> None:
+        self._text_editor.state = UnderlineState(self._text_editor)
+    def apply_default(self) -> None:
+        self._text_editor.state = DefaultState(self._text_editor)
+    def decorate_text(self, text: str) -> str:
+        return f"<b>{text}</b>"
+
+class ItalicState(BaseState):
+    def apply_bold(self) -> None:
+        self._text_editor.state = BoldState(self._text_editor)
+    def apply_italic(self) -> None:
+        self._text_editor.state = self
+    def apply_underline(self) -> None:
+        self._text_editor.state = UnderlineState(self._text_editor)
+    def apply_default(self) -> None:
+        self._text_editor.state = DefaultState(self._text_editor)
+    def decorate_text(self, text: str) -> str:
+        return f"<i>{text}</i>"
+
+class UnderlineState(BaseState):
+    def apply_bold(self) -> None:
+        self._text_editor.state = BoldState(self._text_editor)
+    def apply_italic(self) -> None:
+        self._text_editor.state = ItalicState(self._text_editor)
+    def apply_underline(self) -> None:
+        self._text_editor.state = self
+    def apply_default(self) -> None:
+        self._text_editor.state = DefaultState(self._text_editor)
+    def decorate_text(self, text: str) -> str:
+        return f"<u>{text}</u>"
+
+
+te = TextEditor()
+te.enter_text("Ala ma")
+te.apply_bold()
+te.enter_text("kota")
+te.apply_underline()
+te.enter_text("a kot ma ale")
+te.apply_default()
+te.enter_text("\nTaka to krotka i glupia historia")
+print("############")
+print(te)
+print("############")
+te.undo()
+print(te)
+print("############")
+te.undo()
+print(te)
+print("############")
+te.redo()
+print(te)
+print("############")
+te.redo()
+print(te)
+print("############")
+te.redo()
+print(te)
+print("############")
