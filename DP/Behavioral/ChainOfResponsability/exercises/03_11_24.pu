@@ -1,0 +1,22 @@
+@startuml
+abstract class Handler{
+    - successor: Handler
+    + Handler(successor: Handler) <<create>>
+    + handle(request)
+    - _handle(request)
+}
+
+class ConcreteClass1{
+    - _handle(request)
+}
+class ConcreteClass2{
+    - _handle(request)
+}
+class ConcreteClass3{
+    - _handle(request)
+}
+
+ConcreteClass1 --|> Handler
+ConcreteClass2 --|> Handler
+ConcreteClass3 --|> Handler
+@enduml
