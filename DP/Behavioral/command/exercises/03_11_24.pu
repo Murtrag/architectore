@@ -1,0 +1,33 @@
+@startuml
+class RemoteControl{
+    + command: ICommand
+    + Remote(command: ICommand)
+    + set_command(command: ICommand)
+    + press_button()
+}
+
+interface ICommand{
+    + execute()
+}
+
+class ConcreteCommand1{
+    + light: Light
+    + execute()
+}
+class ConcreteCommand2{
+    + light: Light
+    + execute()
+}
+
+class Light{
+    + turn_on()
+    + turn_off()
+}
+ICommand --o RemoteControl
+
+ConcreteCommand1 ..|> ICommand
+ConcreteCommand2 ..|> ICommand
+
+Light <-- ConcreteCommand1
+Light <-- ConcreteCommand2
+@enduml
