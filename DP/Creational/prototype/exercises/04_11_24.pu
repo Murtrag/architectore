@@ -1,0 +1,23 @@
+@startuml
+abstract class Prototype{
+    + clone(): Prototype
+}
+
+class ConcreteClass1{
+    + property
+    + method1()
+    + method2()
+    + method3()
+    + clone(): Prototype
+}
+class ConcreteClass2{
+    + property
+    + method1()
+    + method2()
+    + method3()
+    + clone(): Prototype
+}
+
+ConcreteClass1 --|> Prototype
+ConcreteClass2 --|> Prototype
+@enduml
