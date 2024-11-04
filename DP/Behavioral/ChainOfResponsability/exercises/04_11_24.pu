@@ -1,0 +1,22 @@
+@startuml
+abstract class Chain{
+    - successor: Chain
+    + Chain(successor: Chain)
+    + handle(requst)
+    - _handle(requst)
+}
+
+class ConcreteHandler1{
+    - _handle(request)
+}
+class ConcreteHandler2{
+    - _handle(request)
+}
+class ConcreteHandler3{
+    - _handle(request)
+}
+
+ConcreteHandler1 --|> Chain
+ConcreteHandler2 --|> Chain
+ConcreteHandler3 --|> Chain
+@enduml
