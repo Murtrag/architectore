@@ -1,0 +1,34 @@
+@startuml
+class Remote{
+    - _command: Command
+    + Remote(command) <<create>>
+    + set_command()
+    + press_button()
+}
+
+interface Command{
+    + execute()
+}
+
+class TurnOff{
+    + light: Light
+    + execute()
+}
+
+class TurnOn{
+    + light: Light
+    + execute()
+}
+
+class Light{
+    + turn_on()
+    + turn_off()
+}
+
+Remote *-- Command
+TurnOn ..|> Command
+TurnOff ..|> Command
+
+TurnOn --> Light
+TurnOff --> Light
+@enduml
