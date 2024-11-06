@@ -8,6 +8,8 @@ Połączenie dwukierunkowe <-->
 
 
 
+abstract class Book
+interface Book
 @startuml
 class Book {
     - title: str

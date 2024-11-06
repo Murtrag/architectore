@@ -1,3 +1,5 @@
+@startuml
+
 interface Command {
   + execute() : void
 }

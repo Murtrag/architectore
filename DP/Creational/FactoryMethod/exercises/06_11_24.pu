@@ -1,0 +1,36 @@
+@startuml
+interface Animal{
+    + method1()
+    + method2()
+}
+
+class Dog{
+    + method1()
+    + method2()
+}
+
+class Cat{
+    + method1()
+    + method2()
+}
+
+class Factory{
+    + /create_animal()/:Animal
+}
+
+class DogFactory{
+    + create_animal():Animal
+}
+class CatFactory{
+    + create_animal():Animal
+}
+
+Dog ..|> Animal
+Cat ..|> Animal
+
+DogFactory ..|> Factory
+CatFactory ..|> Factory
+
+
+Factory ..> Animal
+@enduml

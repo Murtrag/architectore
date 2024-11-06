@@ -1,0 +1,17 @@
+*-- composite
+o-- agregation
+--|> inheritance
+..|> interface
+--> association
+..> dependency
+<--> two ways
+
+abstract class Test{
+
+}
+interface Test{
+- _var: str
++ var: str
++ Test(a, b, c) <<create>>
+
+}

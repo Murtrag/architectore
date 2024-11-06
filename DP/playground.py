@@ -1,55 +1,19 @@
-from abc import ABC, abstractmethod
-from time import sleep
+@startuml
+abstract class Chain{
+    - successor: Chain
+    + Chain(successor: Chain) <<create>>
+    + handle(request)
+    - _handle(request)
+}
 
-class SystemFile(ABC):
-    def __init__(self, name):
-        self.name = name
+class ConcreteClass1{
+    - _handle(request) 
+} 
+class ConcreteClass2{
+    - _handle(request) 
+} 
 
-    def display(self):
-        pass
+Chain <|-- ConcreteClass1
+Chain <|-- ConcreteClass2
 
-    def get_size(self):
-        pass
-class File(SystemFile):
-    def __init__(self, name, size):
-        super().__init__(name)
-        self.size = size
-
-    def display(self):
-        print(self.name)
-    
-    def get_size(self):
-        return self.size
-
-class Directory(SystemFile):
-    def __init__(self, name):
-        super().__init__(name)
-        self.children = []
-    
-    def add(self, file):
-        self.children.append(file)
-
-    def remove(self, file):
-        self.children.remove(file)
-
-    def display(self):
-        print(self.name)
-        for f in self.children:
-            f.display()
-
-    def get_size(self):
-        return sum( f.get_size() for f in self.children)
-
-    # Przykład użycia
-# Composite usage
-file1 = File("file1.txt", 10)
-file2 = File("file2.txt", 20)
-sub_dir = Directory("sub_dir")
-sub_dir.add(file1)
-
-root_dir = Directory("root")
-root_dir.add(sub_dir)
-root_dir.add(file2)
-
-root_dir.display()
-print(f"Total size: {root_dir.get_size()} KB")
+@enduml
