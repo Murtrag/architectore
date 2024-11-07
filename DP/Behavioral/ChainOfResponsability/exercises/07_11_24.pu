@@ -1,0 +1,47 @@
+@startuml
+class Chain{
+    - _successor: Chain
+    + Chain() <<create>>
+    + handle(request)
+    - _handle(request)
+}
+
+class ConcreteHandle1{
+    - _handle(request): Boolean
+}
+class ConcreteHandle2{
+    - _handle(request): Boolean
+}
+class ConcreteHandle3{
+    - _handle(request): Boolean
+}
+
+note right of ConcreteHandle1
+    Pseudocode:
+    if request.type == "A" then
+        return True
+    else
+        return False
+end note
+
+note right of ConcreteHandle2
+    Pseudocode:
+    if request.type == "B" then
+        return True
+    else
+        return False
+end note
+
+note right of ConcreteHandle3
+    Pseudocode:
+    if request.type == "C" then
+        return True
+    else
+        return False
+end note
+
+ConcreteHandle1 --|> Chain
+ConcreteHandle2 --|> Chain
+ConcreteHandle3 --|> Chain
+
+@enduml
