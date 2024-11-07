@@ -26,5 +26,11 @@ class Author {
     +get_author_info(): str
 }
 
+note right of Author
+    Pseudocode:
+    a = 1
+    b = "test"
+end note
+
 Book *-- Author
 @enduml
