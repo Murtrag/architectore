@@ -1,0 +1,33 @@
+@startuml
+interface Animal{
+    + /make_sound()/
+}
+
+class Dog{
+    + make_sound()
+}
+
+class Cat{
+    + make_sound()
+}
+
+Dog --|> Animal
+Cat --|> Animal
+
+interface BaseFactory{
+    + create_animal(context) -> Animal
+}
+
+class DogFactory{
+    + create_animal(context) -> Animal
+}
+
+class CatFactory{
+    + create_animal(context) -> Animal
+}
+
+DogFactory --|> BaseFactory 
+CatFactory --|> BaseFactory
+
+BaseFactory ..> Animal
+@enduml
