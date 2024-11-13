@@ -1,0 +1,29 @@
+@startuml
+class Prototype{
+    + clone()
+}
+
+class RandomClass1{
+    + method1()
+    + method2()
+    + method3()
+
+    + clone()
+}
+class RandomClass2{
+    + method1()
+    + method2()
+    + method3()
+    + clone()
+}
+class RandomClass3{
+    + method1()
+    + method2()
+    + method3()
+    + clone()
+}
+
+RandomClass1 ..|> Prototype
+RandomClass2 ..|> Prototype
+RandomClass3 ..|> Prototype
+@enduml
