@@ -1,0 +1,32 @@
+@startuml
+interface Animal{
+    + speak()
+}
+
+class Pinguin{
+    + speak()
+}
+class Dog{
+    + speak()
+}
+
+Pinguin ..|> Animal
+Dog ..|> Animal
+
+interface AnimalFactory{
+    + create_animal(context: dict)
+}
+
+class PinguinFactory{
+    + create_animal(context: dict)
+}
+class DogFactory{
+    + create_animal(context: dict)
+}
+
+PinguinFactory ..|> AnimalFactory
+DogFactory ..|> AnimalFactory
+
+AnimalFactory ..> Animal
+
+@enduml
