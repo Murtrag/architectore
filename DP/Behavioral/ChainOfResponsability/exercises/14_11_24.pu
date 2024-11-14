@@ -1,0 +1,21 @@
+@startuml
+class Chain{
+    + _successor: Chain
+    + handle(request)
+    - _handle(request): Boolean
+}
+
+class ConcreteHandler1{
+    - _handle(request): Boolean
+}
+class ConcreteHandler2{
+    - _handle(request): Boolean
+}
+class ConcreteHandler3{
+    - _handle(request): Boolean
+}
+
+ConcreteHandler1 --|> Chain
+ConcreteHandler2 --|> Chain
+ConcreteHandler3 --|> Chain
+@enduml
