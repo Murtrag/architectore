@@ -1,0 +1,32 @@
+@startuml
+class Context{
+    - _command: Command
+    + set_command(command: Command)
+    + perform()
+}
+
+class Light{
+    + light_on()
+    + light_off()
+}
+
+class Command{
+    - _light: Light
+}
+class TurnOn{
+    + execute()
+}
+class TurnOff{
+    + execute()
+}
+
+Context *-- Command
+TurnOn ..|> Command
+TurnOff ..|> Command
+
+Command *-- Light
+
+note left of Context
+self._command = command
+end note
+@enduml
